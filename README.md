@@ -1,18 +1,9 @@
 [TOC]
 
-实验说明
+Javaweb-Project
 ========
 
-PB16060562 毕瑜
-
-
-##课程建议
-
-- 建议开课时长长一些
-- 建议组队完成项目，还可以将项目提交到github上，同学们还可以学习到git的使用，组队完成项目会使各自负担更小。
-- 非常想将项目放到真正的网页上运行，据说学校给每个学生的邮箱名也分配了ftp空间，本来很想直接把网站放到上面让老师在线检查，但还没学会如何远程连接数据库。希望以后的课程里，学生可以把作业放到各自的ftp空间在线访问。
-如果有更长的时间，以后会把项目放到home.ustc.edu.cn/~biu中（我的ftp空间）
-
+biu@mail.ustc.edu.cn
 
 
 
@@ -36,14 +27,14 @@ PB16060562 毕瑜
 - Tomcat 版本
     + *Apache Tomcat v8.5. 可能需要更改*
     + 新建Tomcat映射时，*可能需修改Server Location到Tomcat安装目录*，以确保上传的文件保存在Tomcat目录的webapps\upload\doc下，如图
-    <img src="1.jpg"/>
+    <img src="1.JPG"/>
 以防万一，java程序中将保存上传文件的目录打印在Console中以查看。
 
 
 
 2.程序实现的功能
 ----------------------------
-- ####开始测试
+- #### 开始测试
     
     设置了过滤器，在浏览器中输入
     http://localhost:8080/spring5
@@ -62,7 +53,7 @@ session中设置30分钟后登录失效。
 注册或登录成功后跳转到主页index.jsp(重定向flist.action在首页加载了上传文件列表)
 >如果不登录就进入index.jsp则主页不会加载上传文件列表
 
-- ####首页介绍
+- #### 首页介绍
 
 1.首页如图，“用户名”链接点击后，会进入个人主页。“文档”、“视频”、“图片的链接点击后进入各个页面
 搜索功能暂时还没有实现
@@ -84,7 +75,7 @@ session中设置30分钟后登录失效。
 <img src="index5.jpg"/>
 <img src="index6.jpg"/>
 
-- ####上传文件
+- #### 上传文件
 
 点击用户名的链接进入个人主页，如图
 <img src="user1.jpg"/>
@@ -113,7 +104,7 @@ session中设置30分钟后登录失效。
 
 >上传的文件仅保存在Tomcat目录的webapps\upload的各目录下，Tomcat终止以后，上传过的文件可能会丢失（在FileUploadAction.java和FileUtil.java中有io的读写文件操作，上交前测试代码文件时不会随Tomcat终止丢失的，但文件仍有可能丢失）
 
-- ####下载文件
+- #### 下载文件
  
 1. 测试下载
 
@@ -133,7 +124,7 @@ session中设置30分钟后登录失效。
     <img src="doc3.jpg"/>
 
 
-    #####其他页面：
+    ##### 其他页面：
     <img src="video.jpg"/>
     <img src="pic.jpg"/>
     
@@ -141,12 +132,12 @@ session中设置30分钟后登录失效。
 
 2.项目结构说明
 -------------
-####数据库文件
+#### 数据库文件
 
 - files.sql保存上传的文件信息
 - user.sql保存登录信息
 
-####jar包
+#### jar包
 
 - jdk 环境
     + jre-9.0.4
@@ -154,25 +145,10 @@ session中设置30分钟后登录失效。
 - Tomcat 版本
     + Apache Tomcat v8.5. 用到了Tomcat中lib文件下的jar包
 
-- 老师给出的模板中原有的jar包
 
-####老师的文件的修改
+#### 部分文件说明
 
-- struts.xml中新建了多个file操作对应的action，其中用到了action重定向，interceptor文件拦截器
-
-- UserAction中新增了signin,signout,index等方法
-
-####新增文件
-以下文件模拟了老师的UserAction相关的文件
-
-- File.java
-- UploadInfo.java
-- FileManager.java
-- FileMapper.java
-- FileMapper.xml
-- FileManagerImpl.java
-- FileUploadAction
-……
+- struts.xml中用到了action重定向，interceptor文件拦截器
 
 - LoginFilter.java用于登录验证文件过滤
 
@@ -180,55 +156,6 @@ session中设置30分钟后登录失效。
 
 - mess.properties用于设置文件上传时的错误信息样式
 
-####前端文件
+#### 前端文件
 由bootstrap4前端框架编写
-
-
-
-3.实验总结
--------------
-
-####以下实验心得可忽略
-
-
-1.写了一个过滤器LoginFilter, 在ustc.javaweb.service中
-但在跳转页面后发现s标签中的Action内容没有正常显示
-因为直接跳转的话少了一句
-
-    this.user = this.userManager.loadByEmail(user.getEmail()); 
-解决方法：跳转的时候不直接跳转到.jsp页面而是跳转uload.action
-
-新问题：
-执行这句话时，会报错空指针，因为user此时为null，
-最终解决方案：必须要将登录信息暂存到session中，action每次使用都会新建新的实例。因此在action的signin()函数中添加新的代码
-
-    session.setAttribute("email", user.getEmail()); 
-    ession.setAttribute("name", user.getName());
-jsp中的s标签修改为
-
-    <s:property value="#session.name" default="请登录"/>
-最终实现登录前只跳转到登录页面，登录后显示登录用户的name。
-
-
-2.注销功能
-应该新写一个LogOut的action，考虑到这个action里只有session的操作，不如放到UserAction里作为一个signout函数调用。
-
-
-3.不知道怎么显示数据库的表中的内容，搜索也各有千秋。看到老师已经写好的List<User>一下子感觉少走了很多弯路。
-
-
-4.保存文件时总是保存到了 .metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps目录下
-需要修改Tomcat的Server Location
-删掉现在的Tomcat克隆，再eclipse新建tomcat克隆并且不添加任何工程进去，再在tomcat上点击右键open，Server Location不再是灰色的了。
-把它修改到如图位置
-<img src="1.jpg"/>
-
-    F:\Tomcat\apache-tomcat-8.5.24\webapps\springMybatisStruts2\upload\doc
-
-
-5.有时候css样式表总是不加载，后来发现在浏览器第一次登录的时候再也不加载了，在网上百度多次一直没有任何靠谱的答案
-*后来发现原来是写文件过滤器的时候，只写了jsp文件，而css文件被过滤了无法加载。*
-
-
-
 
