@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ustc.javaweb.po.FileMapper">
+	<insert id="save" parameterType="ustc.javaweb.eo.File">
+  	insert into files values(#{filename},#{filedir},#{filetype},#{filesort},#{fileintro},#{username},#{useremail},#{updatetime})
+    </insert>
+	<select id="getFiles" resultType="ustc.javaweb.eo.File">
+  	select * from files order by updatetime desc
+  	</select>
+  	<select id="getuploadFiles" parameterType="string" resultType="ustc.javaweb.eo.File">
+  	select * from files WHERE useremail = #{email} order by updatetime desc
+    </select>
+    <select id="getTypeFiles" parameterType="string" resultType="ustc.javaweb.eo.File">
+  	select * from files WHERE filetype = #{type} order by updatetime desc
+    </select>
+    <select id="getSortFiles" parameterType="string" resultType="ustc.javaweb.eo.File">
+  	select * from files WHERE filesort = #{sort} order by updatetime desc
+    </select>
+</mapper>

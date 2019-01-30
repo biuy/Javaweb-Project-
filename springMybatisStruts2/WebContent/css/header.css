@@ -1,0 +1,63 @@
+body {
+  width: 100%;
+}
+.container-fluid {
+    padding-right: 0;
+    padding-left: 0;
+    margin: 0;
+}
+.blog-header-logo {
+  font-family: "寰蒋闆呴粦";
+  font-size: 2.5rem;
+  font-weight: 100;
+  color: grey;
+}
+.text-user {
+  font-size: 1.20rem;
+  color: #548B54;
+  padding: 15px 20px;
+}
+a {
+  font-size: 1.00rem;
+  color: #548B54;
+}
+a:hover {
+  color: black;
+}
+
+.nav-link a {
+  text-decoration: underline;
+}
+.blog-header-left {
+  margin-top: 50px;
+  
+}
+.blog-header-right {
+  margin-top: 80px;
+  padding: 0;
+}
+
+.blog-bar {
+  padding: 0;
+  margin: 0;
+  background-color: #E0EEE0;
+  clear: both;
+  width: 100%;
+}
+.navbar {
+  background-color: #8FBC8F;
+  margin: 0;
+}
+
+.text-login {
+  text-decoration: underline;
+  padding: 15px 20px;
+}
+.btn-primary {
+  background-color: #9BCD9B;
+  border-color: #9BCD9B;
+}
+.btn-primary:hover {
+  background-color: #6E8B3D;
+  border-color: #6E8B3D;
+}

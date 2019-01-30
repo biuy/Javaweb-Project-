@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ustc.javaweb.po.UserMapper">
+
+  <select id="loadByEmail" parameterType="string" resultType="ustc.javaweb.eo.User">
+    SELECT * FROM user WHERE email = #{email}
+  </select>
+  <insert id="save" parameterType="ustc.javaweb.eo.User">
+  	insert into user values(#{email},#{name},#{password})
+  </insert>
+  <select id="checkUserExistsWithEmail" parameterType="string" resultType="int">
+  	select count(1) from user WHERE email = #{email}
+  </select>
+  <select id="getUsers" resultType="ustc.javaweb.eo.User">
+  	select * from user
+  </select>
+</mapper>

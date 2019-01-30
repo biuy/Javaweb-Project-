@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.multipart.maxSize" value="102400000000"></constant>
+	<package name="my" extends="struts-default">
+    	<global-allowed-methods>regex:.*</global-allowed-methods>
+    </package>
+	<!-- 解决struts标签自动换行的问题 -->
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.ui.templateDir" value="template" />
+	<constant name="struts.ui.templateSuffix" value="ftl" />
+	<constant name="struts.action.excludePattern" value="/resources/plugins/umeditor/.*" />
+	<constant name="struts.custom.i18n.resources" value="mess"/> 
+	
+	<package name="BasePackage" extends="my">
+		<!-- 定义全局结果,用于在拦截器中返回登录页面或者错误提示页面 -->
+		<global-results>
+			<result name="signin">/signin.jsp</result>
+			<result name="fail">/registerFail.jsp</result>
+			<result name="list">/index.jsp</result>
+			
+		</global-results>
+	</package>
+	
+	<package name="/" extends="BasePackage">
+		<action name="u*" class="ustc.javaweb.action.UserAction" method="{1}">
+			<result name="index" type="redirectAction">flist</result>			
+		</action>
+		
+		<action name="fdoc" class="ustc.javaweb.action.FileUploadAction" method="doc">
+			 <interceptor-ref name="fileUpload">
+		        <param name="allowedTypes">text/html,text/plain,text/css,application/octet-stream,application/msword,application/pdf,application/x-tar,text/xml,application/zip,application/vnd.ms-powerpoint,application/excel,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation</param>
+		        <param name="maximumSize">104857600</param>
+     		</interceptor-ref>
+     		<interceptor-ref name="defaultStack" />
+     		<result name="success" type="redirectAction">fuploadlist</result>    
+            <result name="error">/registerFail.jsp</result>    
+            <result name="input">/user.jsp</result> 
+        </action>
+        <action name="fvideo" class="ustc.javaweb.action.FileUploadAction" method="video">
+			 <interceptor-ref name="fileUpload">
+		        <param name="allowedTypes">video/quicktime,video/x-sgi-movie,video/x-msvideo,video/mp4</param>
+		        <param name="maximumSize">104857600</param>
+     		</interceptor-ref>
+     		<interceptor-ref name="defaultStack" />
+     		<result name="success" type="redirectAction">fuploadlist</result>    
+            <result name="error">/registerFail.jsp</result>    
+            <result name="input">/user.jsp</result> 
+        </action>
+        <action name="fpic" class="ustc.javaweb.action.FileUploadAction" method="pic">
+			 <interceptor-ref name="fileUpload">
+		        <param name="allowedTypes">image/ief,image/jpeg,image/png</param>
+		        <param name="maximumSize">104857600</param>
+     		</interceptor-ref>
+     		<interceptor-ref name="defaultStack" />
+     		<result name="success" type="redirectAction">/fuploadlist.action</result>    
+            <result name="error">/registerFail.jsp</result>    
+            <result name="input">/user.jsp</result> 
+        </action>
+		<action name="f*" class="ustc.javaweb.action.FileUploadAction" method="{1}">
+   		   	<result name="uploadlist">/upload.jsp</result>
+   		   	<result name="doclist">/doc.jsp</result>
+   		   	<result name="videolist">/video.jsp</result>
+   		   	<result name="piclist">/pic.jsp</result>
+   		   
+		</action>
+	</package>
+</struts>

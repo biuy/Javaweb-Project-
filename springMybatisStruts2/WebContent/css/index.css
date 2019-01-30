@@ -1,0 +1,30 @@
+
+.card {
+  margin: 20px;
+}
+
+.card-list {
+  margin: 20px;
+  font-size: 1.2em;
+}
+
+.foot-wrap {
+  background: #202020;
+  padding: 35px 0 0;
+  color: #959595;
+  margin-top: 64px;
+}
+.widget {
+  margin-bottom: 30px;
+  padding: 0px 30px;
+}
+.widget a {
+  color: grey;
+}
+.copyright {
+    background: #111;
+    font-size: 13px;
+    text-align: center;
+    color: #555555;
+    padding: 20px;
+}

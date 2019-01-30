@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #8FBC8F;
+    border-color: #8FBC8F;
+}
+.form-signin {
+  max-width: 400px;
+  padding: 30px;
+  margin-bottom: 100px;
+  float: center;
+}
+.form-control {
+	display: inline;
+	width: 70%;
+	margin: 10px;
+}
+.form-upload {
+	font-size: 2.5em;
+	color:#696969;
+	padding-left:50px;
+	padding-top:50px;
+}
+
